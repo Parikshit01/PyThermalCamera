@@ -4,15 +4,8 @@ import numpy as np
 import argparse
 import time
 import io
-parser = argparse.ArgumentParser()
-parser.add_argument("--device", type=int, default=0, help="Video Device number e.g. 0, use v4l2-ctl --list-devices")
-args = parser.parse_args()
-	
-if args.device:
-	dev = args.device
-else:
-	dev = 0
-	
+import pyautogui
+dev = 0
 #init video
 cap = cv2.VideoCapture('/dev/video'+str(dev), cv2.CAP_V4L)
 cap.set(cv2.CAP_PROP_CONVERT_RGB, 0)
@@ -20,7 +13,7 @@ cap.set(cv2.CAP_PROP_CONVERT_RGB, 0)
 #256x192 General settings
 width = 256 #Sensor width
 height = 192 #sensor height
-scale = 5 #scale multiplier
+scale = 1 #scale multiplier
 newWidth = width*scale 
 newHeight = height*scale
 alpha = 1.0 # Contrast control (1.0-3.0)
@@ -42,11 +35,10 @@ while(cap.isOpened()):
 	if ret == True:
 		imdata,thdata = np.array_split(frame, 2)
 
-		#grab data from the center pixel...
-		x_pixel = 128
-		y_pixel = 96
-		hi = thdata[96][128][0]
-		lo = thdata[96][128][1]
+		#grab data from the mouse position...
+		mouse_x, mouse_y = pyautogui.position()
+		hi = thdata[mouse_y][mouse_x][0]
+		lo = thdata[mouse_y][mouse_x][1]
 		#print(hi,lo)
 		lo = lo*256
 		rawtemp = hi+lo
@@ -64,8 +56,14 @@ while(cap.isOpened()):
 
 		heatmap = cv2.applyColorMap(bgr, cv2.COLORMAP_JET)
 		
+		# draw crosshairs
+		cv2.line(heatmap,(mouse_x,mouse_y+20), (mouse_x,mouse_y-20),(255,255,255),2) #vline
+		cv2.line(heatmap,(mouse_x+20,mouse_y), (mouse_x-20,mouse_y),(255,255,255),2) #hline
+		cv2.line(heatmap,(mouse_x,mouse_y+20), (mouse_x,mouse_y-20),(0,0,0),1) #vline
+		cv2.line(heatmap,(mouse_x+20,mouse_y), (mouse_x-20,mouse_y),(0,0,0),1) #hline
+    				
 		#show temp
-		cv2.putText(heatmap,str(temp)+' C', (int(newWidth/2)+10, int(newHeight/2)-10),\
+		cv2.putText(heatmap,str(temp)+' C', (mouse_x+10, mouse_y-10),\
 		cv2.FONT_HERSHEY_SIMPLEX, 0.45,(0, 255, 255), 1, cv2.LINE_AA)
 
 		#display image
