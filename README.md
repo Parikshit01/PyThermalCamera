@@ -1,10 +1,6 @@
 # PyThermalcam
-Python Software to use the Topdon TC001 Thermal Camera on Linux and the Raspberry Pi. It **may** work with other similar cameras! Please feed back if it does!
-
-Huge kudos to LeoDJ on the EEVBlog forum for reverse engineering the image format from these kind of cameras (InfiRay P2 Pro) to get the raw temperature data!
-https://www.eevblog.com/forum/thermal-imaging/infiray-and-their-p2-pro-discussion/200/
-Check out Leo's Github here: https://github.com/LeoDJ/P2Pro-Viewer/tree/main
-
+Python Software to use the Topdon TC001 Thermal Camera on Linux and the Embedded Microprocessor Platforms like Raspberry Pi, Nvidia Jetson. 
+It **may** work with other similar cameras! (like **InfiRay P2 Pro**)
 
 
 ## Introduction
