@@ -1,11 +1,13 @@
 # PyThermalcam
 Python Software to use the Topdon TC001 Thermal Camera on Linux and the Embedded Microprocessor Platforms like Raspberry Pi, Nvidia Jetson. 
+
 It **may** work with other similar cameras! (like **InfiRay P2 Pro**)
 
+This Repo is forked from the Original Repository https://github.com/leswright1977/PyThermalCamera with some additional implementation code 
 
 ## Introduction
 
-This is a quick and dirty Python implimentation of Thermal Camera software for the Topdon TC001!
+This is a quick and dirty Python implementation of Thermal Camera software for the Topdon TC001!
 (https://www.amazon.co.uk/dp/B0BBRBMZ58)
 No commands are sent the the camera, instead, we take the raw video feed, do some openCV magic, and display a nice heatmap along with relevant temperature points highlighted.
 
