@@ -47,6 +47,11 @@ while cap_left.isOpened() & cap_right.isOpened():
     M_right = cv2.getRotationMatrix2D(cr_right, 270, 1)
     rotated_heatmap_right = cv2.warpAffine(heatmap_right, M_right, (width1_right, height1_right))
     cv2.imshow('cam_right', rotated_heatmap_right)
+
+    stereo = cv.StereoBM.create(numDisparities=16, blockSize=15)
+    disparity = stereo.compute(rotated_heatmap_left,rotated_heatmap_right)
+    cv2.imshow('disparity', disparity)
+
     
     keyPress = cv2.waitKey(1)
     
