@@ -48,8 +48,9 @@ while cap_left.isOpened() & cap_right.isOpened():
     rotated_heatmap_right = cv2.warpAffine(heatmap_right, M_right, (width1_right, height1_right))
     cv2.imshow('cam_right', rotated_heatmap_right)
 
-    stereo = cv.StereoBM.create(numDisparities=16, blockSize=15)
+    stereo = cv2.StereoBM.create(numDisparities=80, blockSize=5)
     disparity = stereo.compute(rotated_heatmap_left,rotated_heatmap_right)
+    disparity = cv2.normalize(disparity, disparity, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
     cv2.imshow('disparity', disparity)
 
     
