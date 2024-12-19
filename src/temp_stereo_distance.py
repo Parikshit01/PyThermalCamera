@@ -58,7 +58,8 @@ while cap_left.isOpened() & cap_right.isOpened():
     
     if keyPress == ord('p'):
         cv2.imwrite("heatmap_left.png", rotated_heatmap_left)
-        cv2.imwrite("heatmap_right.png", rotated_heatmap_right)		
+        cv2.imwrite("heatmap_right.png", rotated_heatmap_right)
+        cv2.imwrite("disparity.png", disparity)	
     if keyPress == ord('q'):
         break
 
